@@ -21,15 +21,14 @@ def playFile(truth, subject, sender=None):
     walkman.play(data, fs)
 
     # Keypress time
-    t.append(time.time())  # append time when stops playing
     imChange('keypress')
     print('Keypress...')
     keypress = 3 # getch()
-    t.append(time.time())  # append time when key is pressed
-    
+    t.append(time.time())  # append time when stops playing
     while keypress > 2: 
         keypress = ord(getch())-ord(str(1))+1
         print(keypress)
+    t.append(time.time())  # append time when key is pressed
     
 #    while int(float(keypress)) > 2:
 #        keypress = getch()
