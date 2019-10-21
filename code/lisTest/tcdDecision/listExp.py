@@ -11,11 +11,7 @@ from functions.sendTrigger import Sender
 from functions.pauser import Pauser
 from getch import getch
 
-csv_path = './data/'
-
-file = open("pause.txt","w") 
-file.write("Play")
-file.close() 
+csv_path = './data/stimuli_list/'
 
 def isTrial():
     if len(sys.argv) > 1:
@@ -31,15 +27,14 @@ os.system('clear')
 print('Enter stimuli category (chin/eng): ')
 stim_category = '{0:s}'.format(input())
 if stim_category == 'chin':
-    train_csv_filename = 'train_stimuli_list_chineese.csv'
-    test_csv_filename = 'train_stimuli_list_chineese.csv'
+    train_csv_filename = 'stimuli_list_chinese_TRAIN.csv'
+    test_csv_filename = 'stimuli_list_chinese_TEST.csv'
 elif stim_category == 'eng':
-    train_csv_filename = 'train_stimuli_list_english.csv'
-    test_csv_filename = 'train_stimuli_list_english.csv'
+    train_csv_filename = 'stimuli_list_english_TRAIN.csv'
+    test_csv_filename = 'stimuli_list_english_TEST.csv'
 else:
     print('Check stimilus category!')
     print(1/0)
-
 
 # Read CSV file using pandas
 df = pd.read_csv(csv_path + train_csv_filename)
@@ -74,7 +69,7 @@ print('Press any key to continue...')
 imChange('start')
 getch()
 print('Training session started.')
-ntrain = 2 # nunber of training stimuli to play
+ntrain = len(train_stimuli_list) # nunber of training stimuli to play
 indices_playback = np.random.choice(len(train_stimuli_list), ntrain, False)
 
 # training session begins
@@ -130,7 +125,7 @@ time.sleep(2)
 imChange('testing')
 time.sleep(2)
 
-ntest = 20 # nunber of test stimuli to play
+ntest = len(test_stimuli_list) # nunber of test stimuli to play
 indices_playback = np.random.choice(len(test_stimuli_list), ntest, False)
 for i in range(len(indices_playback)):
     time.sleep(1.5)

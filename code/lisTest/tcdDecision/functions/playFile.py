@@ -20,24 +20,22 @@ def playFile(truth, subject, sender=None):
     print('Playing')
     walkman.play(data, fs)
 
-    # Keypress time
     imChange('keypress')
     print('Keypress...')
-    keypress = 3 # getch()
-    t.append(time.time())  # append time when stops playing
+    # append time when stops playing
+    t.append(time.time())  
+    # monitor keypress
+    keypress = ord(getch())-ord(str(1))+1
     while keypress > 2: 
         keypress = ord(getch())-ord(str(1))+1
         print(keypress)
-    t.append(time.time())  # append time when key is pressed
-    
-#    while int(float(keypress)) > 2:
-#        keypress = getch()
-#        print(int(float(keypress)))
-
+    # append time when key is pressed       
+    t.append(time.time())  
+    # write to file
     with open('recordings/{0:s}/keys.csv'.format(subject), 'a+') as file:
         file.write('{0:d},{1:s},{2:d},{3:s},{4:s},{5:5.2f},{6:5.3f},{7:5.3f}\n'.format(truth['prompt'],
                                                     truth['path'], truth['npkr'], str(keypress), truth['trial'], t[1]-t[0], t[2]-t[0], t[3]-t[0]))
-    
+    # give feedback
     if keypress == truth['npkr']:
         imChange('correct')
         score = 1
